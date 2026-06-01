@@ -1,0 +1,49 @@
+\section{Geometry and Material}
+
+\subsection{Selection and Description of the Geometry}
+
+The selected geometry is a rocket from the rocketry group of the Universidad de Le\'on. The rocket is a vertical-launch vehicle designed for competition flights, featuring a nose cone, a cylindrical body and fins at the aft end. \Cref{fig:geometry_overview} shows a general view of the geometry.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{geometry_overview}
+%     \caption{General view of the rocket geometry.}
+%     \label{fig:geometry_overview}
+% \end{figure}
+
+The geometry was provided by the rocketry group and is suitable for a vibration study because its slender, elongated configuration leads to well-defined bending and torsional modes, and its structural response is relevant to flight loads and aerodynamic excitation.
+
+\subsection{Geometric Simplifications}
+
+The original rocket geometry includes internal cavities, bulkheads, motor mounts and other internal features. For this study, the geometry has been simplified to a solid body that preserves only the external shape: the nose cone profile, the cylindrical outer skin and the fin geometry. All internal voids, compartments and small chamfers have been removed. This simplification reduces the computational cost of meshing and solving while preserving the overall mass distribution and stiffness of the structure, which are the main drivers of the natural frequencies and mode shapes of interest.
+
+\subsection{Importing into ANSYS}
+
+% State the import format (STEP, IGES, Parasolid, etc.)
+% Verify that no relevant geometric errors are present
+
+\subsection{Material Assignment}
+
+The material assigned to the model is \textbf{EPOXY E-GLASS UD}, selected from the ANSYS composite materials library. This is a unidirectional epoxy--glass composite commonly used in aerospace structures, which is consistent with the type of construction employed by the rocketry group. Its directional properties make it representative of the rocket's skin and fin layup. The material properties as defined in ANSYS are listed in \Cref{tab:material_properties}.
+
+\begin{table}[H]
+\centering
+\caption{Properties of EPOXY E-GLASS UD as defined in ANSYS.}
+\label{tab:material_properties}
+\begin{tabular}{lcc}
+\toprule
+Property & Symbol & Value \\
+\midrule
+Density & $\rho$ & \si{\kg\per\metre\cubed} \\
+Young's modulus (fiber dir.) & $E_x$ & \si{\giga\pascal} \\
+Young's modulus (transverse) & $E_y$ & \si{\giga\pascal} \\
+Young's modulus (transverse) & $E_z$ & \si{\giga\pascal} \\
+Poisson's ratio & $\nu_{xy}$ & --- \\
+Poisson's ratio & $\nu_{yz}$ & --- \\
+Poisson's ratio & $\nu_{xz}$ & --- \\
+Shear modulus & $G_{xy}$ & \si{\giga\pascal} \\
+Shear modulus & $G_{yz}$ & \si{\giga\pascal} \\
+Shear modulus & $G_{xz}$ & \si{\giga\pascal} \\
+\bottomrule
+\end{tabular}
+\end{table}

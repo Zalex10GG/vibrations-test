@@ -1,0 +1,109 @@
+%!TEX program = lualatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{xspace}
+\usepackage{caption}
+\usepackage{siunitx}
+\usepackage{svg}
+\svgsetup{inkscapearea=page}
+\sisetup{per-mode=symbol}
+
+\geometry{margin=2.6cm}
+\setlength{\headheight}{14.5pt}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setstretch{1.08}
+\setlist[itemize]{topsep=4pt,itemsep=3pt,leftmargin=1.8em}
+\setlength{\parindent}{0pt}
+
+\graphicspath{{figures/}}
+
+\hypersetup{
+  pdftitle={Modal Analysis and Harmonic Response of a Structural Geometry},
+  pdfauthor={Alejandro Gil Getino},
+  colorlinks=false
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancyhead[L]{Noise and Vibrations}
+\fancyhead[R]{Alejandro Gil Getino}
+
+\fancyfoot[L]{Universidad de Le\'on}
+\fancyfoot[R]{\thepage}
+
+\newcommand{\zetaS}{\ensuremath{\zeta}\xspace}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{1cm}
+  {\Huge \textbf{Modal Analysis and Harmonic Response of a Structural Geometry}}\\[0.5cm]
+  {\Large Final Assessment --- Noise and Vibrations}\\[2cm]
+
+  % TODO: Replace with your geometry image
+  % \begin{figure}[H]
+  %     \centering
+  %     \includegraphics[width=0.6\textwidth]{geometry_overview}
+  % \end{figure}
+
+  \vfill
+  {\large Noise and Vibrations}\\[0.3cm]
+  {\large Alejandro Gil Getino}\\[0.3cm]
+  {\large Aerospace Engineering}\\[0.3cm]
+  {\large \today}
+\end{titlepage}
+
+\newpage
+\pagenumbering{roman}
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+\thispagestyle{empty}
+\listoffigures
+\newpage
+\thispagestyle{empty}
+\listoftables
+\newpage
+
+\pagenumbering{arabic}
+
+\input{sections/01_introduction}
+\input{sections/02_geometry_material}
+\input{sections/03_mesh}
+\input{sections/04_boundary_conditions}
+\input{sections/05_modal_analysis}
+\input{sections/06_modal_participation}
+\input{sections/07_harmonic_analysis}
+\input{sections/08_displacement_stress_response}
+\input{sections/09_damping}
+\input{sections/10_postprocessing}
+\input{sections/11_conclusions}
+
+\newpage
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}
