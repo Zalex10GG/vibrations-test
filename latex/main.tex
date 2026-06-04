@@ -22,7 +22,9 @@
 \usepackage{caption}
 \usepackage{siunitx}
 \usepackage{svg}
-\svgsetup{inkscapearea=page}
+\svgsetup{inkscapearea=page,inkscape=force}
+\usepackage{appendix}
+\usepackage{pdflscape}
 \sisetup{per-mode=symbol}
 
 \geometry{margin=2.6cm}
@@ -36,7 +38,7 @@
 \graphicspath{{figures/}}
 
 \hypersetup{
-  pdftitle={Modal Analysis and Harmonic Response of a Structural Geometry},
+  pdftitle={Modal Analysis and Harmonic Response of a Sounding Rocket},
   pdfauthor={Alejandro Gil Getino},
   colorlinks=false
 }
@@ -59,20 +61,17 @@
 \begin{titlepage}
   \centering
   \vspace*{1cm}
-  {\Huge \textbf{Modal Analysis and Harmonic Response of a Structural Geometry}}\\[0.5cm]
-  {\Large Final Assessment --- Noise and Vibrations}\\[2cm]
-
-  % TODO: Replace with your geometry image
-  % \begin{figure}[H]
-  %     \centering
-  %     \includegraphics[width=0.6\textwidth]{geometry_overview}
-  % \end{figure}
+  {\Huge \textbf{Modal Analysis and Harmonic Response\\[0.2cm] of a Sounding Rocket}}\\[1cm]
+  {\LARGE Final Assessment --- Noise and Vibrations}
 
   \vfill
-  {\large Noise and Vibrations}\\[0.3cm]
-  {\large Alejandro Gil Getino}\\[0.3cm]
-  {\large Aerospace Engineering}\\[0.3cm]
-  {\large \today}
+  \includegraphics[width=0.65\textwidth]{geometry_overview}
+  \vfill
+
+  {\LARGE Noise and Vibrations}\\[0.3cm]
+  {\LARGE Alejandro Gil Getino}\\[0.3cm]
+  {\LARGE Aerospace Engineering}\\[0.3cm]
+  {\LARGE \today}
 \end{titlepage}
 
 \newpage
@@ -105,5 +104,22 @@
 \addcontentsline{toc}{section}{References}
 \bibliographystyle{ieeetr}
 \bibliography{references}
+
+\newpage
+\begin{appendices}
+\begin{landscape}
+\thispagestyle{empty}
+\renewcommand{\thesection}{\Roman{section}}
+\section*{APPENDIX I: Technical Drawing of the Rocket Geometry}
+\addcontentsline{toc}{section}{APPENDIX I: Technical Drawing of the Rocket Geometry}
+\label{app:rocket_drawing}
+\vfill
+\begin{center}
+\includegraphics[width=\linewidth,height=\dimexpr\textheight-6\baselineskip\relax,keepaspectratio]{Plane_rocket-g.pdf}
+\end{center}
+\vfill
+\hfill{\footnotesize\thepage}
+\end{landscape}
+\end{appendices}
 
 \end{document}

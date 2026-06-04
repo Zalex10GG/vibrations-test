@@ -2,16 +2,39 @@
 
 \subsection{Selection and Description of the Geometry}
 
-The selected geometry is a rocket from the rocketry group of the Universidad de Le\'on. The rocket is a vertical-launch vehicle designed for competition flights, featuring a nose cone, a cylindrical body and fins at the aft end. \Cref{fig:geometry_overview} shows a general view of the geometry.
+The selected geometry is a rocket from the rocketry group of the Universidad de Le\'on, chosen by the student from a geometry previously used in the group's activities. The rocket is a vertical-launch vehicle designed for competition flights, featuring a nose cone, a cylindrical body and fins at the aft end. \Cref{fig:geometry_overview} shows a general view of the geometry.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{geometry_overview}
-%     \caption{General view of the rocket geometry.}
-%     \label{fig:geometry_overview}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{geometry_overview}
+    \caption{General view of the rocket geometry.}
+    \label{fig:geometry_overview}
+\end{figure}
 
-The geometry was provided by the rocketry group and is suitable for a vibration study because its slender, elongated configuration leads to well-defined bending and torsional modes, and its structural response is relevant to flight loads and aerodynamic excitation.
+The geometry was provided by the rocketry group and is suitable for a vibration study because its slender, elongated configuration leads to well-defined bending and torsional modes, and its structural response is relevant to flight loads and aerodynamic excitation. The main geometric parameters, extracted from the technical drawing in \Cref{app:rocket_drawing}, are summarised in \Cref{tab:geometry_parameters}.
+
+\begin{table}[H]
+\centering
+\caption{Main geometric parameters of the rocket.}
+\label{tab:geometry_parameters}
+\begin{tabular}{lcc}
+\toprule
+Parameter & Symbol & Value \\
+\midrule
+Total height & $H$ & \SI{48.094}{} \\
+Nosecone height & $h_{nc}$ & \SI{6.812}{} \\
+Root chord & $c_r$ & \SI{6.289}{} \\
+Tip chord & $c_t$ & \SI{2}{} \\
+Outer diameter & $\varnothing$ & \SI{6.3}{} \\
+Top width (fin + body + fin) & $w$ & \SI{26.3}{} \\
+Fin span & $b_f$ & \SI{9.538}{} \\
+Fin sweep angle & $\Lambda$ & \SI{21.8}{\degree} \\
+Nose cone radius & $R_{nc}$ & \SI{0.3}{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The full technical drawing with all dimensions is provided in \hyperref[app:rocket_drawing]{Appendix I}.
 
 \subsection{Geometric Simplifications}
 
@@ -19,12 +42,18 @@ The original rocket geometry includes internal cavities, bulkheads, motor mounts
 
 \subsection{Importing into ANSYS}
 
-% State the import format (STEP, IGES, Parasolid, etc.)
-% Verify that no relevant geometric errors are present
+The geometry was imported into ANSYS Workbench using the STEP format (.step). After import, the model was verified to ensure that no relevant geometric errors were present: no poorly connected surfaces, duplicated bodies or details that could make meshing difficult were found. The geometry was confirmed to be a single compact solid body, ready for meshing and analysis. \Cref{fig:geometry_ansys} shows the geometry as imported into ANSYS.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{geometry_ansys}
+    \caption{Geometry imported into ANSYS Workbench.}
+    \label{fig:geometry_ansys}
+\end{figure}
 
 \subsection{Material Assignment}
 
-The material assigned to the model is \textbf{EPOXY E-GLASS UD}, selected from the ANSYS composite materials library. This is a unidirectional epoxy--glass composite commonly used in aerospace structures, which is consistent with the type of construction employed by the rocketry group. Its directional properties make it representative of the rocket's skin and fin layup. The material properties as defined in ANSYS are listed in \Cref{tab:material_properties}.
+The material assigned to the model is \textbf{EPOXY E-GLASS UD}, selected from the ANSYS composite materials library. This is a unidirectional epoxy--glass composite commonly used in aerospace structures, which is consistent with the type of construction employed by the rocketry group. Its directional properties make it representative of the rocket's skin and fin layup. The material was chosen because the actual rocket is built from glass fibre, so this composite best represents the real structural behaviour. The material properties as defined in ANSYS are listed in \Cref{tab:material_properties}.
 
 \begin{table}[H]
 \centering
@@ -34,16 +63,16 @@ The material assigned to the model is \textbf{EPOXY E-GLASS UD}, selected from t
 \toprule
 Property & Symbol & Value \\
 \midrule
-Density & $\rho$ & \si{\kg\per\metre\cubed} \\
-Young's modulus (fiber dir.) & $E_x$ & \si{\giga\pascal} \\
-Young's modulus (transverse) & $E_y$ & \si{\giga\pascal} \\
-Young's modulus (transverse) & $E_z$ & \si{\giga\pascal} \\
-Poisson's ratio & $\nu_{xy}$ & --- \\
-Poisson's ratio & $\nu_{yz}$ & --- \\
-Poisson's ratio & $\nu_{xz}$ & --- \\
-Shear modulus & $G_{xy}$ & \si{\giga\pascal} \\
-Shear modulus & $G_{yz}$ & \si{\giga\pascal} \\
-Shear modulus & $G_{xz}$ & \si{\giga\pascal} \\
+Density & $\rho$ & 2000 \si{\kg\per\metre\cubed} \\
+Young's modulus (fiber dir.) & $E_x$ & 45 \si{\giga\pascal} \\
+Young's modulus (transverse) & $E_y$ & 10 \si{\giga\pascal} \\
+Young's modulus (transverse) & $E_z$ & 10 \si{\giga\pascal} \\
+Poisson's ratio & $\nu_{xy}$ & 0.30 \\
+Poisson's ratio & $\nu_{yz}$ & 0.40 \\
+Poisson's ratio & $\nu_{xz}$ & 0.30 \\
+Shear modulus & $G_{xy}$ & 5 \si{\giga\pascal} \\
+Shear modulus & $G_{yz}$ & 3.846 \si{\giga\pascal} \\
+Shear modulus & $G_{xz}$ & 5 \si{\giga\pascal} \\
 \bottomrule
 \end{tabular}
 \end{table}
