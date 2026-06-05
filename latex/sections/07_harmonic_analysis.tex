@@ -1,26 +1,71 @@
 \section{Harmonic Analysis}
+\label{sec:harmonic_analysis}
 
 \subsection{Objective of the Harmonic Analysis}
 
-Harmonic analysis makes it possible to study the steady-state response of the system to a sinusoidal excitation with variable frequency. This analysis is used to identify resonances, dynamic amplifications and critical areas of displacement or stress.
-
-The harmonic analysis must be defined based on the results obtained in the modal analysis. In particular, the frequency range and the direction of excitation must be related to the natural frequencies and mode shapes identified previously.
+The harmonic analysis studies the steady-state response of the rocket to a sinusoidal excitation of variable frequency, with the purpose of identifying resonance peaks, dynamic amplification factors and the critical areas of displacement and stress. The analysis is set up from the modal results obtained in \Cref{sec:modal_interpretation}: the frequency range, the direction of excitation and the points of study are chosen so that the most relevant modes identified in \Cref{tab:extended_modes} and \Cref{tab:modal_participation} are covered.
 
 \subsection{Justification of the Excitation}
 
-% Indicate:
-% - Type of excitation applied (base acceleration, point force, face force, etc.)
-% - Direction of excitation
-% - Amplitude used
-% - Point, face or area of application
-% - Explain whether the excitation may activate any of the relevant modes
+The boundary conditions defined in \Cref{sec:boundary_conditions} represent a ground vibration test configuration in which the rocket is rigidly attached to a test bench through its motor interface. Under this configuration, the natural physical excitation is a vibration transmitted through the test bench into the motor mount. This is reproduced in the model as a \textbf{base acceleration} applied to the same face that carries the Fixed Support, with the acceleration prescribed in the global $Y$ direction (perpendicular to the longitudinal axis of the rocket).
 
-\subsection{Frequency Range}
+The choice of the $Y$ direction is consistent with the modal participation analysis of \Cref{sec:modal_interpretation}: the two most dynamically relevant modes in the low-frequency range, modes 1 and 2 ($\SI{97.43}{\hertz}$ and $\SI{98.47}{\hertz}$), have their dominant participation in $Y$ and $X$ respectively, with $M_y = 59.04\%$ and $M_x = 58.76\%$. A $Y$-direction excitation is therefore expected to excite mode 1 strongly and mode 7 ($\SI{565.06}{\hertz}$, $M_y = 19.35\%$) as a secondary resonance. Modes 2, 8 and any other $X$-dominated mode are not expected to produce significant peaks in the $Y$ response and will appear only as minor features.
 
-The frequency range of the harmonic analysis has been selected taking into account the natural frequencies obtained in the modal analysis. It is recommended to cover an interval that includes at least the first natural frequencies most relevant to the selected excitation direction.
+The amplitude of the base acceleration is set to
+\begin{equation}
+    a = 1g = \SI{9.81}{\metre\per\second\squared},
+\end{equation}
+which is used here as a representative value for an aerospace vibration test case and is small enough to keep the structural response in the linear regime assumed by the modal-superposition harmonic solver~\cite{inman_engineering_vibration}. The complete definition of the base acceleration and the Fixed Support in ANSYS Mechanical is shown in \Cref{fig:base_acceleration}.
 
-% Justify:
-% - Initial frequency of the analysis
-% - Final frequency of the analysis
-% - Number of points or substeps used
-% - Which modes fall within the selected range
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{harmonic_response/base_acceleration}
+    \caption{Definition of the base acceleration (in the $Y$ direction) and the Fixed Support (at the motor nozzle) in ANSYS Mechanical.}
+    \label{fig:base_acceleration}
+\end{figure}
+
+\subsection{Frequency Range and Discretisation}
+
+The frequency range of the harmonic analysis is set to
+\begin{equation}
+    f \in [\SI{0}{\hertz},\ \SI{1000}{\hertz}],
+\end{equation}
+matching the cut-off used to define the modal basis in \Cref{sec:modal_interpretation}. This interval covers the eleven modes that lie below \SI{1000}{\hertz} and in particular the four most dynamically significant ones (modes 1, 2, 7 and 8).
+
+The range is discretised using the \textbf{\num{500}} divisions available in ANSYS for the frequency sweep. Over the \SI{1000}{\hertz} span, this gives a frequency sensitivity of approximately
+\begin{equation*}
+    \Delta f \approx \frac{\SI{1000}{\hertz}}{500} = \SI{2}{\hertz}.
+\end{equation*}
+This resolution is sufficient to capture the resonance peaks of the $\zeta = 5\%$ and $\zeta = 10\%$ cases (half-power bandwidth $\ge \SI{10}{\hertz}$ at \SI{97}{\hertz}, where the half-power bandwidth is $\Delta f_\text{hp} = 2 \zeta f_n$)~\cite{inman_engineering_vibration}. For the $\zeta = 1\%$ case, the bandwidth ($\approx \SI{2}{\hertz}$) is comparable to the step size and the first peak is therefore slightly under-resolved, but the comparison across damping values remains valid since all three runs use the same discretisation.
+
+\subsection{Output Points}
+
+The dynamic response is extracted at three points that are representative of the behaviour of the structure under the prescribed excitation:
+
+\begin{itemize}
+    \item \textbf{Nose tip.} The free end of the nose cone. This is the location of the largest absolute displacement in the first transverse bending modes (modes 1 and 2).
+    \item \textbf{Fin tip.} The free end of the leading edge of fin 1 (the fin in the $-X$ direction, see \Cref{fig:fin_layout}). This is the location of the largest displacement of the fin under transverse excitation, and the point most sensitive to fin-bending modes.
+    \item \textbf{Fin root.} The base of fin 1, at the junction with the body. This is the location of the largest bending moment and therefore the largest stress for the transverse bending modes.
+\end{itemize}
+
+For each of these points, the directional deformation in $Y$ (for the displacement probes) and the stress (for the stress probe) are exported as a function of frequency.
+
+\subsection{Damping Cases}
+
+Following the requirements of the assessment guide, the harmonic analysis is repeated for three values of the modal damping ratio, all other parameters being kept constant:
+\begin{equation}
+    \zeta \in \{1\%,\ 5\%,\ 10\%\},
+    \label{eq:damping_values}
+\end{equation}
+applied as \emph{constant modal damping} (a single ratio common to all modes)~\cite{chopra_dynamics_of_structures}. The three resulting datasets are compared in \Cref{sec:damping}.
+
+\subsection{Analysis Settings in ANSYS}
+
+The complete analysis tree in ANSYS Mechanical is shown in \Cref{fig:harmonic_tree}. The tree contains the base acceleration and the Fixed Support defined in the previous subsections, the three output points of \Cref{sec:displacement_stress}, the harmonic analysis settings (frequency range and number of points) and the three damping cases.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{harmonic_response/harmonic_tree}
+    \caption{Harmonic analysis tree in ANSYS Mechanical, showing the base excitation, the output points and the three damping cases.}
+    \label{fig:harmonic_tree}
+\end{figure}

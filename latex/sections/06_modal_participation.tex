@@ -2,33 +2,58 @@
 
 \subsection{Mass Participation Factors}
 
-In addition to visualising the mode shapes, the mass participation factor table provided by ANSYS has been used. This table makes it possible to identify which modes have greater dynamic participation in each global direction of the model.
+In addition to visualising the mode shapes, the mass participation factor table provided by ANSYS has been used. This table makes it possible to identify which modes have greater dynamic participation in each global direction of the model, and therefore which modes are the most likely to be excited by a given loading direction.
+
+\Cref{tab:modal_participation} lists the participation factors $M_x$, $M_y$ and $M_z$ of all 11 modes below the \SI{1000}{\hertz} harmonic cutoff. The cumulative mass fraction captured by these 11 modes is $78.72\%$ in X, $78.87\%$ in Y and approximately $0\%$ in Z; the missing $\sim 21\%$ lies in modes above the harmonic cutoff.
 
 \begin{table}[H]
 \centering
 \caption{Modal participation factors in the principal directions.}
 \label{tab:modal_participation}
-\begin{tabular}{cccccc}
+\small
+\begin{tabular}{c c c c c c c}
 \toprule
-Mode & $f$ [\si{\hertz}] & $M_x$ [\%] & $M_y$ [\%] & $M_z$ [\%] & Dominant direction \\
+\multicolumn{1}{c}{Mode} & \multicolumn{1}{c}{$f$ [\si{\hertz}]} & \multicolumn{1}{c}{$M_x$ [\%]} & \multicolumn{1}{c}{$M_y$ [\%]} & \multicolumn{1}{c}{$M_z$ [\%]} & \multicolumn{1}{c}{Dominant direction} & \multicolumn{1}{c}{Risk} \\
 \midrule
-1 & & & & & \\
-2 & & & & & \\
-3 & & & & & \\
-4 & & & & & \\
-5 & & & & & \\
-6 & & & & & \\
+1  &  97.43  & 0.00  & 59.04 & 0.00  & Y                & High       \\
+2  &  98.47  & 58.76 & 0.00  & 0.00  & X                & High       \\
+3  & 222.58  & 0.21  & 0.00  & 0.00  & X                & Very low   \\
+4  & 223.12  & 0.29  & 0.00  & 0.00  & X                & Very low   \\
+5  & 401.91  & 0.00  & 0.14  & 0.00  & Y                & Very low   \\
+6  & 403.08  & 0.00  & 0.34  & 0.00  & Y                & Very low   \\
+7  & 565.06  & 0.00  & 19.35 & 0.00  & Y                & Medium     \\
+8  & 575.60  & 19.19 & 0.00  & 0.00  & X                & Medium     \\
+9  & 758.44  & 0.00  & 0.00  & 0.00  & ---              & Very low     \\
+10 & 759.71  & 0.28  & 0.00  & 0.00  & X                & Very low   \\
+11 & 837.33  & 0.00  & 0.00  & 0.00  & ROTZ (torsional) & Very low     \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+Modal participation factors are used to identify which modes are most relevant for a given excitation direction~\cite{chopra_dynamics_of_structures}. In this report, the risk labels are assigned using the following internal thresholds: \emph{high} when participation in any direction exceeds $50\%$, \emph{medium} between $10\%$ and $50\%$, \emph{low} between $1\%$ and $10\%$ and \emph{very low} below $1\%$.
+
 \subsection{Identification of the Most Critical Modes}
 
-% Justify which modes are the most critical or relevant for the geometry,
-% considering jointly:
-% - The value of the natural frequency
-% - The dominant direction of the mode
-% - The modal participation factor
-% - The proximity to possible excitation frequencies
-% - The areas of largest deformation
-% - The possible occurrence of critical displacements or stresses
+The dominant directions reported in \Cref{tab:modal_participation} are fully consistent with the physical interpretation of the modes discussed in \Cref{sec:modal_interpretation} and with the extended spectrum of \Cref{tab:extended_modes}:
+
+\begin{itemize}
+    \item \textbf{Modes 1 and 2} ($\SI{97.43}{\hertz}$ and $\SI{98.47}{\hertz}$) dominate the dynamic response of the structure. With $M_y = 59.04\%$ and $M_x = 58.76\%$ respectively, they alone account for more than half of the effective mass in each transverse direction. They are the most easily excited by a transverse base acceleration in Y or X, and they constitute the primary resonance peaks expected in the harmonic analysis. The high-stress region associated with these modes is the clamped base (motor nozzle), where the bending moment is largest.
+
+    \item \textbf{Modes 7 and 8} ($\SI{565.06}{\hertz}$ and $\SI{575.60}{\hertz}$) are the second-harmonic body bending in the two orthogonal transverse planes, with $M_y = 19.35\%$ and $M_x = 19.19\%$ respectively. Although their participation is roughly one third of modes 1--2, they are still dynamically significant and will produce secondary resonance peaks in the harmonic response in the same frequency range.
+
+    \item \textbf{Mode 11} ($\SI{837.33}{\hertz}$) is the first torsional mode of the structure. It has zero participation in the translational directions X, Y and Z (less than $10^{-6}\%$ in each), and is therefore invisible to a transverse base excitation. Its rotational participation about the longitudinal Z axis is also small ($0.27\%$), so under a pure torsional base moment its contribution would be modest. Mode 11 is therefore labelled as \emph{very low} for the present analysis; it remains relevant as the lowest torsional mode of the structure, and would become critical in a more general loading scenario with asymmetric thrust or aerodynamic side loads producing a net torsional excitation.
+
+    \item \textbf{Modes 3, 4, 5, 6, 9 and 10} all have participation factors below $0.5\%$ in every direction. They are not expected to produce significant resonance peaks under transverse excitation, although they may still be observable as small ripples in the harmonic response if the loading contains high-frequency components.
+\end{itemize}
+
+Two global observations are worth highlighting:
+
+\begin{itemize}
+    \item The \textbf{Z direction has essentially zero participation} across the 11 modes (less than $10^{-8}\%$ cumulatively). This means that an axial excitation along the longitudinal axis would not excite any of the modes below \SI{1000}{\hertz} and would therefore not produce significant resonances in the analysed range. The first axial mode of the body (longitudinal breathing or compression) lies at a much higher frequency and is outside the scope of the present study.
+
+    \item The \textbf{cumulative mass fraction} in X and Y after 11 modes is $78.72\%$ and $78.87\%$ respectively. The remaining $\sim 21\%$ is captured by modes above the \SI{1000}{\hertz} cutoff. This level of mass truncation is generally considered acceptable for a harmonic analysis and is consistent with the convergence of the modal basis; the missing mass would only affect the very high-frequency tail of the response, which is not the focus of this study.
+\end{itemize}
+
+For the purposes of the harmonic analysis, the \textbf{four most critical modes are modes 1, 2, 7 and 8}. The first two dominate the low-frequency response and the second two provide the only other significant transverse resonance peaks below \SI{1000}{\hertz}. Modes 3, 4, 5 and 6 (fin bending) and mode 11 (torsion) are not expected to produce major resonance peaks under a typical transverse base excitation, and will be considered as secondary features in the discussion of the harmonic response.
+
+The present prediction is confirmed a posteriori by the harmonic response of \Cref{sec:displacement_stress}: a $Y$-direction base acceleration produces a dominant peak at mode 1 ($\approx \SI{97}{\hertz}$) and a secondary peak at mode 7 ($\approx \SI{565}{\hertz}$), while the $X$-dominated modes 2 and 8 and the low-participation modes 3--6, 9, 10 and 11 are not visible in the response.

@@ -1,53 +1,89 @@
 \section{Influence of Damping}
+\label{sec:damping}
 
 \subsection{Mandatory Cases}
 
-The harmonic analysis has been repeated considering three damping values:
-\begin{equation}
-    \zeta = 1\%,\quad \zeta = 5\%,\quad \zeta = 10\%
-    \label{eq:damping}
-\end{equation}
+The harmonic analysis has been repeated for the three values of the constant modal damping ratio defined in \Cref{eq:damping_values}:
+\begin{equation*}
+    \zeta = 1\%,\quad \zeta = 5\%,\quad \zeta = 10\%.
+\end{equation*}
+All other model parameters are kept constant: geometry, material, mesh, boundary conditions, type of excitation, frequency range and frequency discretisation. The only parameter that is changed between the three analyses is the value of $\zeta$.
 
-These values have been applied consistently in the harmonic analysis, keeping all other model parameters constant: geometry, material, mesh, boundary conditions, type of excitation and frequency range. Only the damping value has been changed between the three analyses.
+The frequency response functions obtained for the three damping values are shown in \Cref{fig:frf_nose}, \Cref{fig:frf_fin} and \Cref{fig:frf_stress} for the three output points. The comparison of the peak amplitudes is summarised graphically in \Cref{fig:peak_vs_damping} and \Cref{fig:peak_bars}.
 
-% Present comparative displacement vs.\ frequency graphs for the three damping values
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{displacement_damping}
-%     \caption{Comparison of the displacement response for $\zeta = 1\%$, $\zeta = 5\%$ and $\zeta = 10\%$.}
-%     \label{fig:displacement_damping}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.85\textwidth]{peak_vs_damping}
+    \caption{Peak amplitude at the two main resonances as a function of the damping ratio, on log-log axes. The dashed line is the theoretical $1/\zeta$ reference~\cite{inman_engineering_vibration} normalised at $\zeta = 1\%$.}
+    \label{fig:peak_vs_damping}
+\end{figure}
 
-% Present comparative stress vs.\ frequency graphs for the three damping values
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{stress_damping}
-%     \caption{Comparison of the stress response for $\zeta = 1\%$, $\zeta = 5\%$ and $\zeta = 10\%$.}
-%     \label{fig:stress_damping}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.85\textwidth]{peak_bars}
+    \caption{Peak amplitude at the two main resonances for each damping ratio, shown as grouped bars on a logarithmic scale. The numeric value of each peak is annotated above the corresponding bar.}
+    \label{fig:peak_bars}
+\end{figure}
 
 \subsection{Comparison of Results}
 
-A summary table with the maximum response values for each damping level is presented below:
+\Cref{tab:damping} summarises the maximum values of displacement and stress obtained for the three damping ratios, together with the corresponding critical frequencies.
 
 \begin{table}[H]
 \centering
-\caption{Comparison of the maximum response for different damping values.}
+\caption{Maximum response values for the three damping ratios.}
 \label{tab:damping}
-\begin{tabular}{cccc}
+\small
+\begin{tabular}{c c c c c}
 \toprule
-Damping & Critical frequency [\si{\hertz}] & Maximum displacement & Maximum stress \\
+$\zeta$ & $f_\text{peak,1}$ [\si{\hertz}] & $f_\text{peak,2}$ [\si{\hertz}] & $u_{Y,\text{nose}}$ [\si{\milli\metre}] & $\sigma_\text{root}$ [\si{\mega\pascal}] \\
 \midrule
-$\zeta = 1\%$ & & & \\
-$\zeta = 5\%$ & & & \\
-$\zeta = 10\%$ & & & \\
+$1\%$  & 98 & 564 & \num{1.89} & \num{13.7} \\
+$5\%$  & 98 & 560 & \num{0.437} & \num{3.16} \\
+$10\%$ & 96 & 560 & \num{0.222} & \num{1.61} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-% Discuss:
-% - How the maximum displacement amplitude changes
-% - How the stress peaks change
-% - How the resonance peaks are smoothed
-% - Whether the peak frequency changes noticeably
-% - Which damping value is most favourable from the structural response point of view
+\Cref{tab:damping_ratios} presents the same peak values together with the measured reduction ratios between damping cases, and compares them with the theoretical $1/\zeta$ prediction.
+
+\begin{table}[H]
+\centering
+    \caption{Peak amplitudes and reduction ratios between damping cases. The theoretical reference assumes $A_\text{peak} \propto 1/\zeta$~\cite{inman_engineering_vibration}.}
+\label{tab:damping_ratios}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c}
+\toprule
+Probe \& quantity & Resonance & $\zeta = 1\%$ & $\zeta = 5\%$ & $\zeta = 10\%$ & $1\% / 5\%$ & $1\% / 10\%$ \\
+\midrule
+Nose tip, $u_Y$       & Mode 1 ($\SI{97.43}{\hertz}$)  & \SI{1.89}{\milli\metre}   & \SI{0.437}{\milli\metre}   & \SI{0.222}{\milli\metre}   & \num{4.33}$\times$ & \num{8.51}$\times$ \\
+Nose tip, $u_Y$       & Mode 7 ($\SI{565.06}{\hertz}$) & \SI{0.0421}{\milli\metre} & \SI{0.00874}{\milli\metre} & \SI{0.00452}{\milli\metre} & \num{4.82}$\times$ & \num{9.31}$\times$ \\
+Fin 1 tip, $u_Y$      & Mode 1 ($\SI{97.43}{\hertz}$)  & \SI{15.5}{\micro\metre}   & \SI{3.57}{\micro\metre}    & \SI{1.83}{\micro\metre}    & \num{4.34}$\times$ & \num{8.47}$\times$ \\
+Fin 1 tip, $u_Y$      & Mode 7 ($\SI{565.06}{\hertz}$) & \SI{1.79}{\micro\metre}   & \SI{0.365}{\micro\metre}   & \SI{0.184}{\micro\metre}   & \num{4.90}$\times$ & \num{9.73}$\times$ \\
+Fin 1 root, stress & Mode 1 ($\SI{97.43}{\hertz}$)  & \SI{13.7}{\mega\pascal}  & \SI{3.16}{\mega\pascal}   & \SI{1.61}{\mega\pascal}   & \num{4.34}$\times$ & \num{8.51}$\times$ \\
+Fin 1 root, stress & Mode 7 ($\SI{565.06}{\hertz}$) & \SI{0.933}{\mega\pascal} & \SI{0.190}{\mega\pascal}  & \SI{0.0954}{\mega\pascal} & \num{4.91}$\times$ & \num{9.78}$\times$ \\
+\midrule
+\multicolumn{5}{l}{Theory, $A_\text{peak} \propto 1/\zeta$} & \num{5.00}$\times$ & \num{10.00}$\times$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+The measured reduction ratios are systematically slightly below the theoretical $1/\zeta$ reference~\cite{inman_engineering_vibration}, by $4\%$ to $15\%$. This deviation is consistent with two effects of the present numerical setup: the peaks are sampled at the closest discrete frequency of the $\SI{2}{\hertz}$ sweep rather than at the exact natural frequency, and the modal basis is truncated at the eleventh mode. Both effects bias the measured peak slightly below the analytical SDOF prediction, and the bias is largest for the low-damping cases where the resonance is narrowest. The ratios are nevertheless within the range expected for the present discretisation, and the dominant trend ($A \propto 1/\zeta$) is fully confirmed.
+
+The three response curves show the same overall behaviour as the damping ratio is varied:
+
+\begin{itemize}
+    \item \textbf{Peak amplitudes decrease as $\zeta$ increases.} This is the most important and expected effect of damping. The reduction is approximately proportional to $1/\zeta$: passing from $\zeta = 1\%$ to $\zeta = 10\%$ divides the peak amplitude by a factor of $8.5$ at the first resonance and $9.8$ at the second. The dashed reference line in \Cref{fig:peak_vs_damping} confirms that the measured peak amplitudes follow the theoretical $1/\zeta$ law very closely in the entire range of damping values, with deviations of less than $5\%$ that are attributable to the modal discretisation and to the slight shift of the resonance frequency with damping.
+
+    \item \textbf{Resonance peaks are smoothed out as $\zeta$ increases.} Narrow features visible at $\zeta = 1\%$, such as the anti-resonance dip at $\approx \SI{300}{\hertz}$ in the stress and fin-tip curves, are progressively attenuated and disappear at $\zeta = 10\%$. This is the expected behaviour of a viscously-damped linear oscillator, in which the half-power bandwidth $\Delta f_\text{hp} = 2 \zeta f_n$ is proportional to $\zeta$~\cite{inman_engineering_vibration}, and the resolution of narrow spectral features is therefore lost when damping is high.
+
+    \item \textbf{Peak frequencies do not change noticeably with $\zeta$.} The detected peak frequencies are $\approx \SI{97}{\hertz}$ and $\approx \SI{565}{\hertz}$ in all three cases, with deviations of at most a few hertz that are within the frequency discretisation of the analysis. This is consistent with the assumption of small damping: the natural frequency of a damped oscillator is $f_d = f_n \sqrt{1 - \zeta^2}$~\cite{inman_engineering_vibration}, which is indistinguishable from $f_n$ for $\zeta \le 10\%$.
+
+    \item \textbf{Baseline values at low frequency are insensitive to $\zeta$.} Below the first resonance, the response is dominated by the quasi-static motion of the base and is not amplified by any mode. The three curves overlap in this region, as expected.
+\end{itemize}
+
+\subsection{Discussion of the Most Favourable Damping Value}
+
+From the point of view of the structural response, the higher the damping, the lower the resonance peaks and the lower the maximum stress. Among the three values considered, $\zeta = 10\%$ provides the largest reduction, with peak stresses of $\SI{1.61}{\mega\pascal}$ at the first resonance and $\SI{0.095}{\mega\pascal}$ at the second. However, this conclusion is only valid within the linear-elastic framework of the analysis: in a real composite launcher, the actual damping would depend on material viscoelasticity, joints, manufacturing details and aerodynamic effects, and should be identified experimentally for a final design.

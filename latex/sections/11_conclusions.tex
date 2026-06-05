@@ -1,17 +1,17 @@
 \section{Conclusions}
 
-% Answer, at a minimum, the following questions:
-% - What are the first natural frequencies of the geometry?
-% - Which vibration modes are most relevant from the dynamic point of view?
-% - Which modes show the greatest modal participation in the excitation direction?
-% - Which modes may be considered the most critical and why?
-% - In which frequency range do the main resonances appear?
-% - Which areas show the largest displacements?
-% - Which areas show the highest stresses?
-% - How does the response change as damping increases?
-% - Which damping value most clearly reduces the response peaks?
-% - What technical recommendations can be drawn from the analysis?
+The present study has carried out a complete modal and harmonic analysis of a sounding rocket with a slender, four-fin configuration clamped at the motor nozzle. The geometry was imported from the rocketry group of the Universidad de Le\'on, meshed with a refined tetrahedral mesh of approximately \num{14600} elements and assigned a unidirectional glass--epoxy composite material.
 
-% Include a brief final reflection on the limitations of the model: dependence on
-% the boundary conditions, geometric simplifications, mesh used, type of harmonic
-% excitation selected, etc.
+The first six natural frequencies of the structure are $\num{97.43}$, $\num{98.47}$, $\num{222.58}$, $\num{223.12}$, $\num{401.91}$ and $\num{403.08}\ \si{\hertz}$. They appear as three close pairs with small intra-pair splittings. The full modal spectrum up to the $\SI{1000}{\hertz}$ cut-off contains \num{11} modes.
+
+From the modal participation table, the four most dynamically relevant modes are modes 1, 2, 7 and 8. Modes 1 and 2 are the first transverse bending modes in the $Y$ and $X$ directions respectively, with $M_y = 59.04\%$ and $M_x = 58.76\%$. Modes 7 and 8 are the corresponding second-harmonic bending modes, with $M_y = 19.35\%$ and $M_x = 19.19\%$. All four modes fall in the frequency range of the harmonic analysis. The remaining modes (3, 4, 5, 6, 9, 10 and 11) have modal participation factors below $0.5\%$ in the transverse directions and do not produce significant resonance peaks under a transverse base excitation.
+
+The harmonic analysis was performed with a base acceleration of $\SI{1}{g} = \SI{9.81}{\metre\per\second\squared}$ in the $Y$ direction, over the frequency range $\num{0}$--$\num{1000}\ \si{\hertz}$. The dynamic response was extracted at three representative points: the nose tip, the tip of fin 1 and the root of fin 1.
+
+The harmonic response confirms the modal prediction. The dominant resonance is that of mode 1 at $\approx \SI{97}{\hertz}$, with a peak nose displacement of $\SI{1.89}{\milli\metre}$ and a peak stress at the fin root of $\SI{13.7}{\mega\pascal}$ at the lowest damping value. A second, smaller resonance appears at $\approx \SI{565}{\hertz}$ (mode 7), with peak values approximately $1/45$ of the first resonance. The $X$-dominated modes 2 and 8 do not appear in the response, as expected for a $Y$-direction excitation. Modes 3--6, 9, 10 and 11 are similarly absent, consistent with their small or zero modal participation in $Y$.
+
+The comparison of the three damping values shows the expected $1/\zeta$ scaling of the peak amplitudes~\cite{inman_engineering_vibration}. Passing from $\zeta = 1\%$ to $\zeta = 10\%$ reduces the peak nose displacement by a factor of $8.5$ and the peak stress at the fin root by the same factor. The peak frequencies do not shift appreciably with damping, and the narrow spectral features visible at $\zeta = 1\%$ (such as the anti-resonance at $\approx \SI{300}{\hertz}$ in the stress and fin-tip curves) are progressively smoothed out as the damping increases. Among the three values considered, $\zeta = 10\%$ provides the largest reduction in peak response, although the actual damping of a real composite launcher would need to be identified experimentally.
+
+From the point of view of the geometry, the largest displacements occur at the nose tip (the free end of the body) and the largest stresses at the fin root (the clamped end of the appendage). These are the critical areas of the structure under transverse vibration and would be the natural candidates for instrumentation in an experimental modal test or for a structural reinforcement in a design iteration.
+
+The present analysis is subject to a number of limitations that should be taken into account when interpreting the results. The most important one found during the modal interpretation is the possible loss of directional symmetry introduced by the unidirectional EPOXY E-GLASS UD material. Because the fibre reinforcement is concentrated along one material direction, fin pairs aligned with different global axes may experience different effective stiffness if the material orientation is not defined with full cyclic symmetry; this is a plausible explanation for the frequency gap between the fin-bending pairs at \SI{222}{\hertz} and \SI{401}{\hertz}, although it has not been isolated with a dedicated orientation study. The boundary conditions assume a perfectly rigid clamp at the motor interface, which is the most restrictive case and yields the highest natural frequencies; any compliance in the real fixture would lower these frequencies. The geometry has been simplified to a solid body without internal cavities or bulkheads, which slightly modifies the mass distribution and the local stiffness. The mesh resolution has been validated for the first natural frequency only, and the higher modes are captured with less accuracy. The harmonic excitation is restricted to a single transverse direction ($Y$); an analogous run in $X$ would be required to characterise the response of the $X$-dominated modes 2 and 8. The harmonic analysis uses constant modal damping for all modes, with values that span a representative range for composite materials but that do not account for the actual frequency dependence of structural damping in the analysed range.

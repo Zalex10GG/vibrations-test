@@ -11,6 +11,15 @@ The selected geometry is a rocket from the rocketry group of the Universidad de 
     \label{fig:geometry_overview}
 \end{figure}
 
+The rocket has four fins placed at the aft end at \ang{90} intervals around the longitudinal axis. The naming convention adopted in this report and in the ANSYS named selections follows the layout of \Cref{fig:fin_layout}: fins 1 and 3 form the pair aligned with the global $X$ axis (fin 1 in the $-X$ direction, fin 3 in the $+X$ direction), while fins 2 and 4 form the pair aligned with the $Y$ axis (fin 2 in $+Y$, fin 4 in $-Y$). Throughout the report, the fin pairs are referred to as the \emph{X-axis pair} (fins 1, 3) and the \emph{Y-axis pair} (fins 2, 4).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{4fins_overview}
+    \caption{Rear view of the rocket showing the four fins and their layout relative to the global axes, as defined in ANSYS Mechanical. Fins 1 and 3 are aligned with the $X$ axis; fins 2 and 4 are aligned with the $Y$ axis.}
+    \label{fig:fin_layout}
+\end{figure}
+
 The geometry was provided by the rocketry group and is suitable for a vibration study because its slender, elongated configuration leads to well-defined bending and torsional modes, and its structural response is relevant to flight loads and aerodynamic excitation. The main geometric parameters, extracted from the technical drawing in \Cref{app:rocket_drawing}, are summarised in \Cref{tab:geometry_parameters}.
 
 \begin{table}[H]
@@ -21,15 +30,15 @@ The geometry was provided by the rocketry group and is suitable for a vibration 
 \toprule
 Parameter & Symbol & Value \\
 \midrule
-Total height & $H$ & \SI{48.094}{} \\
-Nosecone height & $h_{nc}$ & \SI{6.812}{} \\
-Root chord & $c_r$ & \SI{6.289}{} \\
-Tip chord & $c_t$ & \SI{2}{} \\
-Outer diameter & $\varnothing$ & \SI{6.3}{} \\
-Top width (fin + body + fin) & $w$ & \SI{26.3}{} \\
-Fin span & $b_f$ & \SI{9.538}{} \\
+Total height & $H$ & \SI{48.094}{\centi\metre} \\
+Nosecone height & $h_{nc}$ & \SI{6.812}{\centi\metre} \\
+Root chord & $c_r$ & \SI{6.289}{\centi\metre} \\
+Tip chord & $c_t$ & \SI{2}{\centi\metre} \\
+Outer diameter & $\varnothing$ & \SI{6.3}{\centi\metre} \\
+Top width (fin + body + fin) & $w$ & \SI{26.3}{\centi\metre} \\
+Fin span & $b_f$ & \SI{9.538}{\centi\metre} \\
 Fin sweep angle & $\Lambda$ & \SI{21.8}{\degree} \\
-Nose cone radius & $R_{nc}$ & \SI{0.3}{} \\
+Nose cone radius & $R_{nc}$ & \SI{0.3}{\centi\metre} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -38,7 +47,7 @@ The full technical drawing with all dimensions is provided in \hyperref[app:rock
 
 \subsection{Geometric Simplifications}
 
-The original rocket geometry includes internal cavities, bulkheads, motor mounts and other internal features. For this study, the geometry has been simplified to a solid body that preserves only the external shape: the nose cone profile, the cylindrical outer skin and the fin geometry. All internal voids, compartments and small chamfers have been removed. This simplification reduces the computational cost of meshing and solving while preserving the overall mass distribution and stiffness of the structure, which are the main drivers of the natural frequencies and mode shapes of interest.
+The original rocket geometry includes internal cavities, bulkheads, motor mounts and other internal features. For this study, the geometry has been simplified to a solid body that preserves only the external shape: the nose cone profile, the cylindrical outer skin and the fin geometry. All internal voids, compartments and small chamfers have been removed. This simplification reduces the computational cost of meshing and solving and keeps the external bending geometry of the rocket, but it also modifies the mass distribution and local stiffness with respect to the real structure. This limitation is considered when interpreting the modal frequencies and harmonic response.
 
 \subsection{Importing into ANSYS}
 

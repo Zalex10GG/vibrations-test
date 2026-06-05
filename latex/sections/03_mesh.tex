@@ -1,4 +1,5 @@
 \section{Meshing and Convergence Analysis}
+\label{sec:mesh_convergence}
 
 \subsection{Mesh Description}
 
@@ -37,7 +38,7 @@ The standard refinement procedure raised a meshing error on the root of the four
 
 Before accepting the modal analysis results, a mesh convergence study has been carried out. The modal analysis has been repeated with several meshes of different sizes and the natural frequency of the first vibration mode has been compared. Further refinement beyond an element size of 0.003125\,m was not possible due to the node and element count limitations of the ANSYS Student licence.
 
-An acceptable convergence criterion is a relative variation of less than 5\% between two consecutive refinements:
+Following the assessment guide, an acceptable convergence criterion is a relative variation of less than 5\% between two consecutive refinements:
 \begin{equation}
     \Delta f_i = \frac{|f_{i,\text{refined}} - f_{i,\text{previous}}|}{f_{i,\text{refined}}} \times 100
     \label{eq:convergence}

@@ -2,32 +2,37 @@
 
 \subsection{Tools Used}
 
-% Indicate which tool has been used for post-processing:
-% Excel, Python, MATLAB, ANSYS internal tools, or a combination thereof.
-% If Python or MATLAB is used, it is recommended to include the code or the main code fragments.
+The post-processing of the ANSYS outputs has been carried out in \textbf{Python}, using the libraries \texttt{pandas} for CSV parsing and tabular manipulation, \texttt{matplotlib} for the generation of the frequency response and damping comparison plots, and \texttt{numpy} for the numerical operations. \texttt{seaborn} is used for the convergence plots of \Cref{sec:mesh_convergence}. All scripts are part of the project repository and are listed below for reproducibility:
+
+\begin{itemize}
+    \item \texttt{scripts/convergence.py}: reads \texttt{data/convergence/convergence.csv}, computes the relative errors between consecutive refinements, produces the convergence plots of \Cref{fig:convergence_frequency}, \Cref{fig:convergence_error_measures} and \Cref{fig:convergence_error_total}, and copies the SVG figures into the LaTeX \texttt{figures/} directory.
+    \item \texttt{scripts/harmonic.py}: reads the three frequency response tables for each of the three output points and for each of the three damping ratios, produces the harmonic response plots of \Cref{fig:frf_nose}, \Cref{fig:frf_fin} and \Cref{fig:frf_stress}, the damping comparison plots of \Cref{fig:peak_vs_damping} and \Cref{fig:peak_bars}, and writes a CSV summary of the detected peak amplitudes to \texttt{results/harmonic/peaks\_summary.csv}.
+\end{itemize}
+
+Both scripts are run from the project root with a single \texttt{uv run} command, since the project dependencies are declared in \texttt{pyproject.toml} and no additional packages are required. The figures are exported in both \texttt{SVG} (used by \texttt{inkscape} through \texttt{\textbackslash includesvg}) and \texttt{PNG} (used for inspection) formats.
 
 \subsection{Quality of the Graphs}
 
-The graphs included in this report meet the following minimum requirements:
+The graphs included in this report meet the following quality criteria:
+
 \begin{itemize}
-    \item Explanatory title or descriptive figure caption.
-    \item Axis labels.
-    \item Units indicated.
-    \item Legend when several curves are shown.
-    \item Appropriate scale.
-    \item Identification of the most important resonance peaks.
+    \item Each figure has a descriptive caption that states the quantity represented, the excitation case and the damping value, where applicable.
+    \item All axes are labelled with the physical quantity and the unit (\si{\hertz} for frequency, \si{\milli\metre} or \si{\micro\metre} for displacement, \si{\mega\pascal} for stress).
+    \item A legend is provided whenever more than one curve is shown, with explicit damping labels and resonance frequencies.
+    \item The frequency response plots are shown on logarithmic axes to display the full dynamic range of the response (more than four orders of magnitude) in a single figure.
+    \item The most important resonance peaks are identified either by an explicit numerical annotation (in the bar plot of \Cref{fig:peak_bars}) or by a vertical marker indicating the corresponding natural frequency (in the frequency response plots).
 \end{itemize}
 
-When different cases are compared (e.g.\ the damping values $\zeta = 1\%$, $\zeta = 5\%$ and $\zeta = 10\%$), the curves are plotted on the same scale so that the comparison is clear.
+When different cases are compared, the curves are drawn on the same scale, and the same axis ranges are used across the three output points to facilitate visual comparison.
 
 \subsection{Presentation of Results}
 
-Results are presented in an organised manner, combining tables, graphs and technical comments. Not all data exported from ANSYS are included, but only those relevant for justifying the conclusions of the work.
+The results of the study are organised in three blocks:
 
-% Include:
-% - Summary table of natural frequencies
-% - Modal participation factor table
-% - Mesh convergence table
-% - Displacement vs.\ frequency graphs
-% - Stress vs.\ frequency graphs
-% - Summary table of maximum values for the different damping cases
+\begin{enumerate}
+    \item \textbf{Modal analysis.} The first six natural frequencies are summarised in \Cref{tab:modes} and the extended spectrum up to \SI{1000}{\hertz} in \Cref{tab:extended_modes}. The first six mode shapes are shown in \Cref{fig:mode_1}--\Cref{fig:mode_6}, and the complete set of eleven modes in \Cref{fig:mode_1}--\Cref{fig:mode_11}.
+    \item \textbf{Modal participation factors.} The participation table \Cref{tab:modal_participation} and the discussion of \Cref{sec:modal_interpretation} identify the four modes that dominate the dynamic response in each transverse direction.
+    \item \textbf{Harmonic response and damping.} The base acceleration and Fixed Support definition, the analysis tree and the location of the output points are shown in \Cref{fig:base_acceleration}, \Cref{fig:harmonic_tree} and \Cref{fig:output_points} respectively. The frequency response functions for the three output points and the three damping ratios are shown in \Cref{fig:frf_nose}, \Cref{fig:frf_fin} and \Cref{fig:frf_stress}. The dependence of the peak amplitudes on the damping ratio is summarised in \Cref{fig:peak_vs_damping} and \Cref{fig:peak_bars} and in \Cref{tab:damping}.
+\end{enumerate}
+
+Only the data required to support the conclusions of the report have been retained. The raw frequency response tables remain available in \texttt{data/harmonic/} for further analysis.

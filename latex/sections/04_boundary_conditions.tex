@@ -1,27 +1,36 @@
 \section{Boundary Conditions}
+\label{sec:boundary_conditions}
 
 \subsection{Definition of Constraints}
 
-% Describe which areas have been constrained and what type of boundary condition has been applied
-% Indicate what motion is allowed and what motion is blocked
-% Explain what physical situation each constraint represents
+A \emph{Fixed Support} has been applied to the rear face of the rocket, in the region of the motor nozzle, as shown in \Cref{fig:BC_overview}. This is the only constraint in the model; it fully clamps the structure to ground by suppressing all six degrees of freedom (three translations and three rotations) at the constrained face, as can be seen in the analysis tree in \Cref{fig:BC_tree}.
 
-% TODO: Include screenshots of the applied boundary conditions
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{boundary_conditions}
-%     \caption{Boundary conditions applied to the model.}
-%     \label{fig:boundary_conditions}
-% \end{figure}
+Physically, this represents a vibration test configuration in which the rocket is rigidly attached to a test bench through its motor interface. This is the standard mounting arrangement for ground vibration testing of small launchers, and it is also the most conservative constraint case: any compliance in the real fixture would only lower the natural frequencies, so the Fixed Support provides a safe upper bound for the dynamic stiffness of the system.
+
+The same boundary condition is used in the modal analysis and in the subsequent harmonic analysis, so that the natural frequencies and the forced response are obtained on the same constrained geometry.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{BC_overview}
+    \caption{Location of the Fixed Support at the motor nozzle of the rocket.}
+    \label{fig:BC_overview}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{BC_tree}
+    \caption{Fixed Support entry in the ANSYS Mechanical analysis tree.}
+    \label{fig:BC_tree}
+\end{figure}
 
 \subsection{Influence of Boundary Conditions}
 
-Boundary conditions have a direct influence on natural frequencies and mode shapes. The same geometry may show very different frequencies depending on whether it is modelled as clamped, simply supported, suspended, free or partially constrained.
+Boundary conditions have a direct influence on the natural frequencies and mode shapes: the same geometry modelled as clamped, simply supported or free returns very different frequencies. The current model represents a fully clamped configuration at the base, which is the most restrictive case and yields the highest natural frequencies for a given mesh and material.
 
-% Briefly comment on what type of behaviour the model represents:
-% - Is it clamped in one or more areas?
-% - Is it simply supported?
-% - Does it have a symmetry condition?
-% - Is it a free or partially free body?
+The consistency of the model can be checked from the modal results. Because all six rigid-body degrees of freedom are blocked at the nozzle, no rigid-body modes should appear, and indeed none are present: the lowest natural frequency is \SI{97.425}{\hertz}, well above \SI{0}{\hertz}. This confirms that the boundary condition has been applied correctly and that the mesh does not introduce any spurious free motions.
 
-% If rigid body modes appear, identify them and explain whether they are consistent with the applied boundary conditions
+The first six natural frequencies,
+\begin{equation*}
+    97.43,\ 98.47,\ 222.58,\ 223.12,\ 401.91,\ 403.08\ \si{\hertz},
+\end{equation*}
+appear as three close pairs with small intra-pair splittings. This confirms that the constraint is not introducing rigid-body modes or spurious free motion. The physical interpretation of the pair families is discussed in \Cref{sec:modal_interpretation}, where the larger separation between the fin-pair families is treated as an open modelling observation rather than as a consequence of the boundary condition alone.

@@ -1,47 +1,74 @@
 \section{Displacement and Stress Response}
+\label{sec:displacement_stress}
 
-\subsection{Selection of the Point or Area of Study}
+\subsection{Selection of the Points of Study}
 
-% Justify the choice of the study point or area based on the results
-% of the modal analysis and the excitation defined in the harmonic analysis.
-% Include a screenshot identifying its location.
+The three output points defined in \Cref{sec:harmonic_analysis} have been selected on the basis of the modal results and on the expected behaviour of the structure under a $Y$-direction base acceleration:
 
-% TODO: Include screenshot of the selected point
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{study_point}
-%     \caption{Location of the selected point or area of study.}
-%     \label{fig:study_point}
-% \end{figure}
+\begin{itemize}
+    \item The \textbf{nose tip} is the point of largest expected displacement in the first transverse bending modes (modes 1 and 7), because both modes exhibit their maximum modal amplitude at the free end of the rocket.
+    \item The \textbf{fin tip} is the point of largest expected displacement of the fin. Although fin-bending modes (modes 3--6) have small modal participation in the $Y$ direction, the fin tip is also sensitive to the rigid-body rotation of the body induced by the first bending mode, and provides a useful second measure of the response.
+    \item The \textbf{fin root} is the point of largest expected local stress in the fin, because the aerodynamic appendage is attached to the body at this junction and the fin bending load is transferred through this root region.
+\end{itemize}
 
-\subsection{Displacement Response}
+The location of the three points on the geometry, together with the type of result extracted at each one (directional deformation in $Y$ for the displacement probes, stress for the stress probe), is shown in \Cref{fig:output_points}.
 
-% Present a displacement vs.\ frequency graph.
-% The graph must include:
-% - Horizontal axis with frequency in Hz
-% - Vertical axis with displacement in consistent units
-% - Identification of the main resonance peaks
-% - Technical commentary on the results
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{harmonic_response/points_stress_deformation}
+    \caption{Location of the three output points on the rocket geometry: nose tip and fin tip (deformation in $Y$), and fin root (stress).}
+    \label{fig:output_points}
+\end{figure}
 
-% TODO: Include displacement vs.\ frequency graph
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{displacement_frequency}
-%     \caption{Displacement response as a function of frequency.}
-%     \label{fig:displacement_frequency}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.65\textwidth]{nose_displacement}
+    \caption{Nose tip displacement as a function of excitation frequency, for the three damping ratios considered. The two resonance peaks of the $Y$-dominated modes are clearly visible at $\approx \SI{97}{\hertz}$ and $\approx \SI{565}{\hertz}$.}
+    \label{fig:frf_nose}
+\end{figure}
 
-\subsection{Stress Response}
+\subsection{Displacement Response at the Nose Tip}
 
-% Present a stress (e.g.\ von Mises) vs.\ frequency graph.
-% Identify the main peaks and relate them to the natural frequencies.
+\Cref{fig:frf_nose} shows the magnitude of the $Y$ displacement at the nose tip as a function of frequency, on a logarithmic scale, for the three damping values considered. The plot exhibits the typical shape of a base-acceleration frequency response~\cite{inman_engineering_vibration}: a flat, low-amplitude plateau at low frequencies, a sharp resonance peak at the first natural frequency, a smooth decay afterwards, and a second smaller peak at the second resonance of the same family.
 
-% TODO: Include stress vs.\ frequency graph
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{stress_frequency}
-%     \caption{Equivalent stress response as a function of frequency.}
-%     \label{fig:stress_frequency}
-% \end{figure}
+The first peak appears at $\approx \SI{97}{\hertz}$ and corresponds to mode 1 ($f_1 = \SI{97.43}{\hertz}$, $M_y = 59.04\%$). Its amplitude scales with the inverse of the damping ratio, as expected from the SDOF resonance theory: $A_\text{peak} \propto 1/\zeta$~\cite{inman_engineering_vibration}. The peak values are $\SI{1.89}{\milli\metre}$ for $\zeta = 1\%$, $\SI{0.44}{\milli\metre}$ for $\zeta = 5\%$ and $\SI{0.22}{\milli\metre}$ for $\zeta = 10\%$, which corresponds to reductions by factors of $4.3$ and $8.5$ respectively.
 
-% Relate the observed peaks to the natural frequencies obtained in the modal analysis.
+The second peak appears at $\approx \SI{565}{\hertz}$ and corresponds to mode 7 ($f_7 = \SI{565.06}{\hertz}$, $M_y = 19.35\%$). The peak amplitude is roughly $1/45$ of the first peak in all three damping cases, which is consistent with the ratio of the modal participation factors ($19.35/59.04 \approx 1/3$) combined with the smaller mode-shape value at the nose in the second bending harmonic.
+
+No other peaks are visible above the noise floor of the plot. In particular, the $X$-dominated modes (modes 2 at $\SI{98.47}{\hertz}$ and 8 at $\SI{575.60}{\hertz}$) do not appear, as expected for a $Y$-direction excitation. The fin-bending modes (modes 3--6, between $\SI{222}{\hertz}$ and $\SI{403}{\hertz}$) also do not appear, because their $Y$-direction modal participation is below $0.5\%$. The torsional mode 11 ($\SI{837.33}{\hertz}$) is similarly absent, since it has $0\%$ participation in translation.
+
+\subsection{Displacement Response at the Fin Tip}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.65\textwidth]{fin_displacement}
+    \caption{Fin tip displacement as a function of excitation frequency, for the three damping ratios considered.}
+    \label{fig:frf_fin}
+\end{figure}
+
+\Cref{fig:frf_fin} shows the $Y$ displacement at the fin tip. The response has the same two-peak structure as the nose tip, but the overall amplitude is roughly two orders of magnitude smaller. This is because the fin tip does not move as a free end of the body: it is the end of an appendage attached to the body, and its motion is driven by the body rotation of the first bending mode rather than by direct translation.
+
+The first peak at $\approx \SI{97}{\hertz}$ has amplitudes of $\SI{15.5}{\micro\metre}$, $\SI{3.57}{\micro\metre}$ and $\SI{1.83}{\micro\metre}$ for $\zeta = 1\%$, $5\%$ and $10\%$ respectively. The second peak at $\approx \SI{565}{\hertz}$ is approximately one order of magnitude smaller, with amplitudes of $\SI{1.79}{\micro\metre}$, $\SI{0.37}{\micro\metre}$ and $\SI{0.18}{\micro\metre}$.
+
+A small dip in the curve is visible around $\SI{300}{\hertz}$ for the $\zeta = 1\%$ case. This is an anti-resonance of the modal-superposition response, produced in a region where modal contributions with similar frequency and opposite phase interfere~\cite{inman_engineering_vibration}; it is not an eigenmode of the structure. With the $2\ \si{\hertz}$ discretisation used in the present analysis, the dip is partially resolved for $\zeta = 1\%$ and is smoothed out for higher damping values.
+
+\subsection{Stress Response at the Fin Root}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.65\textwidth]{fin_root_stress}
+    \caption{Stress at the fin root as a function of excitation frequency, for the three damping ratios considered.}
+    \label{fig:frf_stress}
+\end{figure}
+
+\Cref{fig:frf_stress} shows the stress at the fin root, as exported by the ANSYS harmonic stress analysis. The shape of the curve is the same as for the displacement probes, but the absolute values reflect the stress concentration at the fin--body junction, where the fin bending load is transferred into the main structure.
+
+The first peak at $\approx \SI{97}{\hertz}$ has amplitudes of $\SI{13.7}{\mega\pascal}$, $\SI{3.16}{\mega\pascal}$ and $\SI{1.61}{\mega\pascal}$ for $\zeta = 1\%$, $5\%$ and $10\%$ respectively. The second peak at $\approx \SI{565}{\hertz}$ reaches $\SI{0.93}{\mega\pascal}$, $\SI{0.19}{\mega\pascal}$ and $\SI{0.095}{\mega\pascal}$.
+
+A deep, narrow minimum is visible at $\approx \SI{300}{\hertz}$ for $\zeta = 1\%$, where the stress drops by more than an order of magnitude below the surrounding baseline. This is an anti-resonance of the stress probe: at this frequency, the modal contributions interfere destructively at the fin root, producing a near-zero net stress~\cite{inman_engineering_vibration}. As with the fin-tip displacement, the minimum is smoothed out for higher damping values.
+
+The maximum stress observed in the whole study is $\SI{13.7}{\mega\pascal}$ at the first resonance for the lowest damping value. The structure therefore remains well within the linear elastic regime for the full range of damping values considered.
+
+\subsection{Confirmation of the Modal Analysis Prediction}
+
+The peaks observed in the harmonic response are in full agreement with the prediction made in \Cref{sec:modal_interpretation} from the modal participation table: the dominant resonance is that of mode 1 ($\approx \SI{97}{\hertz}$), followed by the secondary resonance of mode 7 ($\approx \SI{565}{\hertz}$). The $X$-dominated modes 2 and 8, expected to be invisible in the $Y$ response, do not produce any peak. The fin-bending modes 3--6, with less than $0.5\%$ participation in $Y$, are also absent, as is the torsional mode 11. This consistency confirms the analysis of \Cref{tab:modal_participation} and validates the choice of the four most critical modes for the present study.

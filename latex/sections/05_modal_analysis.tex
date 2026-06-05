@@ -2,52 +2,171 @@
 
 \subsection{Analysis Setup}
 
-The Modal module in ANSYS Mechanical has been used to obtain the natural frequencies and mode shapes of the geometry. A minimum of six modes have been extracted.
+The Modal module in ANSYS Mechanical has been used to obtain the natural frequencies and mode shapes of the geometry. A total of \textbf{20 modes} have been extracted, well above the minimum of six required to characterise the dynamic behaviour of the structure and to provide a complete view of the spectrum up to the \SI{1000}{\hertz} cutoff used in the harmonic analysis.
 
-% Clearly indicate:
-% - Type of analysis used
-% - Number of calculated modes
-% - Final selected mesh
-% - Applied boundary conditions
-% - Assigned material
-% - Main assumptions of the analysis
+The analysis has been set up on the mesh selected in the convergence study (element size \SI{0.022}{\metre}, 14\,463 elements and 29\,625 nodes) and with the Fixed Support applied at the motor nozzle described in \Cref{sec:boundary_conditions}. The material assigned to the model is EPOXY E-GLASS UD (\Cref{tab:material_properties}).
+
+The main assumptions of the analysis are:
+\begin{itemize}
+    \item linear elastic behaviour of the material (small deformations, no plasticity);
+    \item effective material properties taken from the unidirectional composite data in ANSYS;
+    \item no pre-stress (Pre-Stress = None in the analysis tree);
+    \item undamped modal analysis: damping is not considered in the eigenvalue problem~\cite{inman_engineering_vibration}, and is introduced later only in the harmonic analysis through constant modal damping ratios.
+\end{itemize}
 
 \subsection{First Six Vibration Modes}
 
-The first six vibration modes are presented below. For each mode, the natural frequency, the observed mode shape and the physical interpretation of the motion are indicated.
+The first six vibration modes are summarised in \Cref{tab:modes}. Each mode is described by its natural frequency and by the physical pattern of the deformation.
+
+The six modes appear in three close pairs, but the nature of the pairing is not the same in all three cases. Pair (1, 2) corresponds to the first body bending in the two orthogonal transverse planes. Pairs (3, 4) and (5, 6), on the other hand, are coupled bending modes of opposite fin pairs (see \Cref{fig:fin_layout} for the fin numbering): pair (3, 4) involves the Y-axis pair (fins 2 and 4), while pair (5, 6) involves the X-axis pair (fins 1 and 3). In each pair, the dominant amplitude alternates between the two fins. The detailed interpretation of each mode is given in \Cref{sec:modal_interpretation}.
 
 \begin{table}[H]
 \centering
 \caption{Summary of the first six vibration modes.}
 \label{tab:modes}
-\begin{tabular}{ccc}
+\small
+\begin{tabular}{c c p{9.5cm}}
 \toprule
-Mode & Frequency [\si{\hertz}] & Physical description of the mode \\
+\multicolumn{1}{c}{Mode} & \multicolumn{1}{c}{Frequency [\si{\hertz}]} & \multicolumn{1}{c}{Physical description of the mode} \\
 \midrule
-1 & & \\
-2 & & \\
-3 & & \\
-4 & & \\
-5 & & \\
-6 & & \\
+1 & 97.43  & First body bending, ZY plane (flexural) \\
+2 & 98.47  & First body bending, ZX plane (flexural) \\
+3 & 222.58 & First fin bending in fins 2 and 4, dominant in fin 2 (fin 4 coupled with low amplitude) \\
+4 & 223.12 & First fin bending in fins 2 and 4, dominant in fin 4 (fin 2 coupled with low amplitude) \\
+5 & 401.91 & Fin bending in fins 1 and 3, dominant in fin 3 (fin 1 coupled with low amplitude; small torsion component observed) \\
+6 & 403.08 & Fin bending in fins 1 and 3, dominant in fin 1 (fin 3 coupled with low amplitude; small torsion component observed) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-% TODO: Include a screenshot of each mode (6 figures)
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{mode_1}
-%     \caption{Mode 1: description of the mode.}
-%     \label{fig:mode_1}
-% \end{figure}
-
 \subsection{Interpretation of the Modes}
+\label{sec:modal_interpretation}
 
-% For each mode, answer the following questions:
-% - Is the mode dominated by bending, torsion, tension-compression or another type of deformation?
-% - What is the main direction of motion?
-% - Which areas show the largest relative deformation?
-% - Does the mode affect the entire geometry or only a local area?
-% - Could the mode be relevant if it coincides with an excitation frequency?
-% - Are there areas where high stresses could appear in a subsequent dynamic analysis?
+For each of the first six modes, the following points are discussed: the type of deformation that dominates the mode, the main direction of motion, the areas of largest relative deformation, whether the deformation is global or local, and whether the mode is likely to be excited by the harmonic loading defined in the next section.
+
+\paragraph{Mode 1 (\SI{97.43}{\hertz}).} The first mode is dominated by flexural deformation of the body in the ZY plane. The maximum transverse displacement occurs at the free end of the rocket (nose cone), and the deformation is global: the body curves sideways along its full length and the four fins move as a nearly rigid group with the body. This is the lowest natural frequency of the structure and is the most easily excited by a transverse base excitation in the Y direction. Large stresses are expected at the clamped base (motor nozzle) due to the bending moment, so this region must be monitored in the subsequent stress analysis.
+
+\paragraph{Mode 2 (\SI{98.47}{\hertz}).} This mode is the same family as mode 1 but in the orthogonal ZX plane. The near-degeneracy with mode 1 (\SI{1.04}{\hertz} splitting) is consistent with the nearly symmetric external geometry of the rocket, although the material orientation and the numerical discretisation can still introduce a small directional difference. Mode 2 is the most likely to be excited by a transverse base excitation in the X direction. The high-stress region is, as in mode 1, the clamped base.
+
+\paragraph{Mode 3 (\SI{222.58}{\hertz}).} The third mode is dominated by flexural deformation of the fins, with the largest amplitude in fin 2. The body itself undergoes a much smaller deformation because the cylindrical shell is much stiffer than the slender fins. Fin 4 also participates with a smaller amplitude, while fins 1 and 3 remain essentially still. The mode is local in the sense that the deformation is confined to one pair of opposite fins and the body acts as a stiff support. The mode may be relevant if the excitation has a component that couples into the motion of fin 2 in the vicinity of \SI{222}{\hertz}.
+
+\paragraph{Mode 4 (\SI{223.12}{\hertz}).} This mode is the same family as mode 3 (first fin bending), but with the dominant amplitude transferred to fin 4 (and fin 2 contributing in the opposite phase). Together, modes 3 and 4 form a 2-DOF system describing the coupled bending of the opposite fin pair. Their small frequency difference is consistent with the finite discretisation used in the model.
+
+\paragraph{Mode 5 (\SI{401.91}{\hertz}).} The fifth mode is dominated by flexural deformation of the fins, with the largest amplitude in fin 3 and fin 1 also participating with a smaller amplitude. A small torsional component of the fins about their spanwise axis is also observed, so the mode is best described as a coupled bending--torsion mode with bending as the dominant contribution. The pattern is the same as in modes 3 and 4 (one fin dominant and the opposite fin of the same pair coupled with low amplitude), but the dominant fin pair is rotated by \ang{90} with respect to pair (3, 4): the deformation is now confined to the X-axis fin pair. The body and the other two fins (2, 4) move much less. The mode may be relevant if the excitation has a component that couples into the motion of fin 3 in the vicinity of \SI{401}{\hertz}.
+
+\paragraph{Mode 6 (\SI{403.08}{\hertz}).} This mode is the same family as mode 5 (coupled bending and torsion in the X-axis fin pair), but with the dominant amplitude transferred to fin 1 (and fin 3 contributing with a smaller amplitude). Together, modes 5 and 6 form a 2-DOF system describing the coupled bending of the X-axis fin pair. Their small frequency difference is consistent with the finite discretisation used in the model.
+
+\subsection{Extended Modal Spectrum up to 1000 Hz}
+
+The harmonic analysis defined in \Cref{sec:harmonic_analysis} sweeps the frequency range from \SI{0}{\hertz} to \SI{1000}{\hertz}. It is therefore useful to inspect the modal spectrum in that range. Of the 20 modes extracted, 11 lie below the cutoff and are listed in \Cref{tab:extended_modes}; mode 12 (\SI{1152.6}{\hertz}) and all higher modes fall outside the harmonic range and are not relevant for this study.
+
+\begin{table}[H]
+\centering
+\caption{Modal spectrum of the rocket up to the \SI{1000}{\hertz} harmonic cutoff.}
+\label{tab:extended_modes}
+\small
+\begin{tabular}{c c p{8cm}}
+\toprule
+\multicolumn{1}{c}{Mode} & \multicolumn{1}{c}{Frequency [\si{\hertz}]} & \multicolumn{1}{c}{Pair group} \\
+\midrule
+1  &  97.43 & A (body bending) \\
+2  &  98.47 & A (body bending) \\
+3  & 222.58 & B (1st fin bending, Y-axis pair) \\
+4  & 223.12 & B (1st fin bending, Y-axis pair) \\
+5  & 401.91 & C (1st fin bending, X-axis pair) \\
+6  & 403.08 & C (1st fin bending, X-axis pair) \\
+7  & 565.06 & D (2nd body bending) \\
+8  & 575.60 & D (2nd body bending) \\
+9  & 758.44 & E (2nd fin bending, pair 2--4, antisym.) \\
+10 & 759.71 & E (2nd fin bending, pair 2--4, sym.) \\
+11 & 837.33 & single (torsion + coupled fin modes) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The first three pairs (A, B, C) are now physically identified. Pair A (modes 1--2) corresponds to the first body bending in two orthogonal transverse planes, pair B (modes 3--4) to the first fin bending of the Y-axis pair (fins 2 and 4), and pair C (modes 5--6) to the first fin bending of the perpendicular X-axis pair (fins 1 and 3). The intra-pair frequency splitting is \SI{1.04}{\hertz} for A, \SI{0.54}{\hertz} for B and \SI{1.17}{\hertz} for C, which is small compared with the separation between different mode families.
+
+Pairs B and C are both associated with fin bending, but they do not share the same frequency: pair B appears at \SI{222}{\hertz} while pair C appears at \SI{401}{\hertz}. The visual inspection of the mode shapes does not suggest that modes 5--6 are a simple higher harmonic of the same deformation. A plausible explanation is the use of the unidirectional EPOXY E-GLASS UD material: since the composite is reinforced mainly along one material direction, the stiffness seen by fin pairs aligned with different global axes may not be equivalent if the fibre orientation is not defined with full cyclic symmetry. The present report cannot confirm this as the only cause, so the frequency gap is reported as an open modelling observation; a dedicated material-orientation and symmetry study would be required to clarify whether it is a real effect of the model definition or a setup-dependent numerical effect of the particular mesh and analysis settings.
+
+Pairs D and E (modes 7--8 and 9--10) lie at higher frequencies and most likely correspond to higher-order flexural or coupled bending--torsion modes of the fins, dominated by the local flexibility of individual fins rather than by the global response of the body. Pair D shows a notably larger splitting (\SI{10.54}{\hertz}) than the others, which suggests a stronger directional or numerical separation between the two shapes. Pair E recovers a more typical splitting of \SI{1.27}{\hertz}.
+
+Mode 11 (\SI{837.33}{\hertz}) is the first single, non-degenerate mode in the spectrum. Because of the four-fold rotational symmetry of the structure, a mode that is intrinsically axisymmetric, such as pure torsion around the longitudinal axis or pure axial breathing of the body, cannot have a symmetric partner and must appear as an isolated frequency. Mode 11 is therefore the most distinctively different mode in the \SIrange{0}{1000}{\hertz} range and is a strong candidate for being the first torsional mode of the rocket.
+
+The mode shapes of all 11 modes below the \SI{1000}{\hertz} harmonic cutoff are shown in \Cref{fig:mode_1}--\Cref{fig:mode_11}. The first six are the modes required by the rubric and the additional five complete the modal spectrum up to the cutoff.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_1}
+    \caption{Mode 1 (\SI{97.43}{\hertz}): first body bending in the ZY plane.}
+    \label{fig:mode_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_2}
+    \caption{Mode 2 (\SI{98.47}{\hertz}): first body bending in the ZX plane.}
+    \label{fig:mode_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_3}
+    \caption{Mode 3 (\SI{222.58}{\hertz}): first fin bending in the Y-axis fin pair, dominant in fin 2.}
+    \label{fig:mode_3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_4}
+    \caption{Mode 4 (\SI{223.12}{\hertz}): first fin bending in the Y-axis fin pair, dominant in fin 4.}
+    \label{fig:mode_4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_5}
+    \caption{Mode 5 (\SI{401.91}{\hertz}): coupled fin bending and torsion in the X-axis fin pair, dominant in fin 3.}
+    \label{fig:mode_5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_6}
+    \caption{Mode 6 (\SI{403.08}{\hertz}): coupled fin bending and torsion in the X-axis fin pair, dominant in fin 1.}
+    \label{fig:mode_6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_7}
+    \caption{Mode 7 (\SI{565.06}{\hertz}): second harmonic body bending in the Y plane.}
+    \label{fig:mode_7}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_8}
+    \caption{Mode 8 (\SI{575.60}{\hertz}): second harmonic body bending in the X plane.}
+    \label{fig:mode_8}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_9}
+    \caption{Mode 9 (\SI{758.44}{\hertz}): higher-order fin bending of pair (2, 4), antisymmetric configuration.}
+    \label{fig:mode_9}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_10}
+    \caption{Mode 10 (\SI{759.71}{\hertz}): higher-order fin bending of pair (2, 4), symmetric configuration.}
+    \label{fig:mode_10}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{modes/mode_11}
+    \caption{Mode 11 (\SI{837.33}{\hertz}): longitudinal torsion of the body, coupled with torsion of fins (1, 3) and bending of fins (2, 4), in \ang{180}-antisymmetric configuration.}
+    \label{fig:mode_11}
+\end{figure}
