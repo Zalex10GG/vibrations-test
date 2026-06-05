@@ -2,30 +2,40 @@
 
 \subsection{Mesh Description}
 
-% Type of mesh: automatic, tetrahedral, hexahedral...
-% Local refinements, element size, element type
+A free tetrahedral mesh has been generated for the full geometry using the patch-conforming method provided by ANSYS Mechanical. The global element size has been set to \SI{0.022}{\metre}, which controls the default seeding of the mesh over all bodies. With this setting, the final mesh contains 14\,463 elements and 29\,625 nodes, which is well within the limits of the ANSYS Student licence and keeps the computational cost moderate.
 
-% TODO: Include screenshot of the global mesh
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{mesh_global}
-%     \caption{Global mesh of the geometry.}
-%     \label{fig:mesh_global}
-% \end{figure}
+Tetrahedral elements have been chosen because the geometry presents curved surfaces and small features that are not easily captured by structured hexahedral elements. The rocket body is a smooth revolved solid and the four fins have a high surface-to-volume ratio; both cases are well suited to an unstructured tetrahedral discretisation.
 
-% TODO: Include screenshot of local refinements if any
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{mesh_refined}
-%     \caption{Detail of the refined mesh zones.}
-%     \label{fig:mesh_refined}
-% \end{figure}
+A local refinement has been applied to the four fins and to the root region where each fin joins the body. These areas are the most flexible parts of the structure and are expected to host the highest-frequency modes and the largest stress gradients, so they require a finer discretisation. The refinement has been implemented as a level-2 refinement on the named selections \texttt{fin\_1}, \texttt{fin\_2}, \texttt{fin\_3} and \texttt{fin\_4} (together with their corresponding root bodies), which approximately halves the element size twice with respect to the global setting.
 
-% State element type, characteristic size, approximate number of nodes and elements
+The standard refinement procedure raised a meshing error on the root of the fourth fin, so an explicit face sizing of \SI{0.011}{\metre} (half the global size, equivalent to a single refinement level) has been added on the named selection \texttt{fin\_root\_4} to enforce the desired element size in that region. The complete mesh tree in ANSYS Mechanical, including the refinements, the local sizing and the named selections used, is shown in \Cref{fig:mesh_tree}.
+
+\Cref{fig:general_mesh} shows the global mesh of the rocket, and \Cref{fig:fin_refinement} shows a detail of one fin and its root, where the transition between the coarser body mesh and the refined fin mesh can be clearly appreciated.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{general_mesh}
+    \caption{Global tetrahedral mesh of the rocket geometry.}
+    \label{fig:general_mesh}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{fin_refinement}
+    \caption{Detail of the mesh refinement applied to the fins and their root regions.}
+    \label{fig:fin_refinement}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{mesh_tree}
+    \caption{Mesh tree in ANSYS Mechanical, showing the refinements, the local sizing and the named selections used.}
+    \label{fig:mesh_tree}
+\end{figure}
 
 \subsection{Convergence Analysis}
 
-Before accepting the modal analysis results, a mesh convergence study has been carried out. The modal analysis has been repeated with several meshes of different sizes and the natural frequency of one vibration mode has been compared. Further refinement beyond an element size of 0.003125\,m was not possible due to the node and element count limitations of the ANSYS Student licence.
+Before accepting the modal analysis results, a mesh convergence study has been carried out. The modal analysis has been repeated with several meshes of different sizes and the natural frequency of the first vibration mode has been compared. Further refinement beyond an element size of 0.003125\,m was not possible due to the node and element count limitations of the ANSYS Student licence.
 
 An acceptable convergence criterion is a relative variation of less than 5\% between two consecutive refinements:
 \begin{equation}
