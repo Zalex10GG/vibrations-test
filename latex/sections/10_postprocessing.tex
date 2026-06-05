@@ -2,7 +2,7 @@
 
 \subsection{Tools Used}
 
-The post-processing of the ANSYS outputs has been carried out in \textbf{Python}, using the libraries \texttt{pandas} for CSV parsing and tabular manipulation, \texttt{matplotlib} for the generation of the frequency response and damping comparison plots, and \texttt{numpy} for the numerical operations. \texttt{seaborn} is used for the convergence plots of \Cref{sec:mesh_convergence}. All scripts are part of the project repository and are listed below for reproducibility:
+The post-processing of the ANSYS outputs has been carried out in \textbf{Python}, using the libraries \texttt{pandas} for CSV parsing and tabular manipulation, \texttt{matplotlib} for the generation of the frequency response and damping comparison plots, and \texttt{numpy} for the numerical operations. \texttt{seaborn} is used for the convergence plots of \Cref{sec:mesh_convergence}. The code used in the report is available in the project repository: \href{https://github.com/Zalex10GG/vibrations-test}{\texttt{github.com/Zalex10GG/vibrations-test}}. All scripts are listed below for reproducibility:
 
 \begin{itemize}
     \item \texttt{scripts/convergence.py}: reads \texttt{data/convergence/convergence.csv}, computes the relative errors between consecutive refinements, produces the convergence plots of \Cref{fig:convergence_frequency}, \Cref{fig:convergence_error_measures} and \Cref{fig:convergence_error_total}, and copies the SVG figures into the LaTeX \texttt{figures/} directory.
