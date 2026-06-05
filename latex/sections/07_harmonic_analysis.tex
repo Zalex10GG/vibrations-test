@@ -15,7 +15,7 @@ The amplitude of the base acceleration is set to
 \begin{equation}
     a = 1g = \SI{9.81}{\metre\per\second\squared},
 \end{equation}
-which is used here as a representative value for an aerospace vibration test case and is small enough to keep the structural response in the linear regime assumed by the modal-superposition harmonic solver~\cite{inman_engineering_vibration}. The complete definition of the base acceleration and the Fixed Support in ANSYS Mechanical is shown in \Cref{fig:base_acceleration}.
+which is used here as a representative value selected for this aerospace vibration test case. The use of base-excitation vibration tests is consistent with aerospace payload verification practice~\cite{nasa_std_7002b}, and the selected amplitude is small enough to keep the structural response in the linear regime assumed by the modal-superposition harmonic solver~\cite{inman_engineering_vibration}. The complete definition of the base acceleration and the Fixed Support in ANSYS Mechanical is shown in \Cref{fig:base_acceleration}.
 
 \begin{figure}[H]
     \centering
@@ -57,7 +57,7 @@ Following the requirements of the assessment guide, the harmonic analysis is rep
     \zeta \in \{1\%,\ 5\%,\ 10\%\},
     \label{eq:damping_values}
 \end{equation}
-applied as \emph{constant modal damping} (a single ratio common to all modes)~\cite{chopra_dynamics_of_structures}. The three resulting datasets are compared in \Cref{sec:damping}.
+applied as \emph{constant modal damping} (a single ratio common to all modes)~\cite{inman_engineering_vibration}. The three resulting datasets are compared in \Cref{sec:damping}.
 
 \subsection{Analysis Settings in ANSYS}
 
